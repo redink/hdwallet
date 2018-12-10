@@ -15,7 +15,7 @@ defmodule Hdwallet.Address.BTC do
   """
   def get_address_from_private_hex(private_hex) do
     private_hex
-    |> Utils.uncompressed_public_from_private_hex()
+    |> Utils.compressed_public_from_private_hex()
     |> Utils.pubkey_hash160()
     |> prepend_version_byte()
     |> encode_base58()
@@ -49,6 +49,7 @@ defmodule Hdwallet.Address.BTC do
     data <> checksum
   end
 
+  @doc false
   defp prepend_zeros(acc, input) do
     input
     |> :binary.bin_to_list()
@@ -57,6 +58,7 @@ defmodule Hdwallet.Address.BTC do
     |> Kernel.<>(acc)
   end
 
+  @doc false
   defp duplicate_zeros(count) do
     String.duplicate("1", count)
   end

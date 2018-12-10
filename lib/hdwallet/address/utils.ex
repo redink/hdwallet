@@ -9,12 +9,21 @@ defmodule Hdwallet.Address.Utils do
   def uncompressed_public_from_private_hex(private_hex) do
     private_hex
     |> Hdkey.decode_hex()
-    |> get_public_key()
+    |> get_public_key(:uncompressed)
+  end
+
+  @doc """
+
+  """
+  def compressed_public_from_private_hex(private_hex) do
+    private_hex
+    |> Hdkey.decode_hex()
+    |> get_public_key(:compressed)
   end
 
   @doc false
-  defp get_public_key(<<private_key::binary-size(32)>>) do
-    {:ok, public_key} = :libsecp256k1.ec_pubkey_create(private_key, :uncompressed)
+  defp get_public_key(<<private_key::binary-size(32)>>, tag) do
+    {:ok, public_key} = :libsecp256k1.ec_pubkey_create(private_key, tag)
     public_key
   end
 
