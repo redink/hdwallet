@@ -17,5 +17,16 @@ defmodule Hdwallet do
     BTCAddress.get_address_from_private_hex(private_hex)
   end
 
+  @doc """
+
+  """
+  def get_address_from_compressed_public_hex(:eth, public_hex) do
+    ETHAddress.get_address_from_compressed_public_hex(public_hex)
+  end
+
+  def get_address_from_compressed_public_hex(:btc, public_hex) do
+    BTCAddress.get_address_from_compressed_public_hex(public_hex)
+  end
+
   # __end_of_module__
 end

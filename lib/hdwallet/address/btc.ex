@@ -21,6 +21,17 @@ defmodule Hdwallet.Address.BTC do
     |> encode_base58()
   end
 
+  @doc """
+
+  """
+  def get_address_from_compressed_public_hex(public_hex) do
+    public_hex
+    |> Hdkey.decode_hex()
+    |> Utils.pubkey_hash160()
+    |> prepend_version_byte()
+    |> encode_base58()
+  end
+
   @doc false
   defp prepend_version_byte(public_hash, network \\ :main) do
     @version_bytes
